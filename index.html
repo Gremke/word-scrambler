@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Scrambler</title>
+  <style>
+  </style>
+  <!-- 
+    Pick random word in array of words.
+    Randomly rearrange letters.
+    Check if inputted word equals original word.
+  -->
+</head>
+<body>
+  <div id="dynamic-text"></div>
+  <button id="new-word">New Word</button>
+  <input type="text" id="input" required>
+  <button id="submit-button"> > </button>
+  <script>
+
+    const words = ['perception', 'straighten', 'diplomatic', 'accessible', 'monstrous', 'appearance', 'domination', 'presidential', 'frequency', 'pneumonia'];
+    const dynamicText = document.getElementById('dynamic-text');
+    let originalWord = '';
+    const input = document.getElementById('input');
+    const submitButton = document.getElementById('submit-button');
+    submitButton.addEventListener('click', function(e) {
+      e.preventDefault(); // Prevent the form from being submitted
+      let inputValue = input.value;
+
+      if (inputValue.toLowerCase() === originalWord) {
+        console.log('correct')
+      } else {
+        console.log('wrong')
+      }
+    });
+
+    const getNewWord = document.getElementById('new-word');
+    getNewWord.addEventListener('click', function(){randomizeLetters()});
+
+    function getRandomWord(array) {
+      const randomWord = Math.floor(Math.random() * array.length);
+      const word = array[randomWord]
+      return word;
+    };
+
+    function randomizeLetters() {
+      originalWord = getRandomWord(words);
+      let letters = originalWord.split('');
+      letters.sort(function(){return 0.5 - Math.random()});
+      dynamicText.textContent = letters.join('');
+    };
+
+  </script>
+</body>
+</html>
