@@ -17,21 +17,29 @@
   <button id="new-word">New Word</button>
   <input type="text" id="input" required>
   <button id="submit-button"> > </button>
+  <div id="result"></div>
   <script>
 
     const words = ['perception', 'straighten', 'diplomatic', 'accessible', 'monstrous', 'appearance', 'domination', 'presidential', 'frequency', 'pneumonia'];
     const dynamicText = document.getElementById('dynamic-text');
     let originalWord = '';
     const input = document.getElementById('input');
+    const result = document.getElementById('result')
     const submitButton = document.getElementById('submit-button');
     submitButton.addEventListener('click', function(e) {
       e.preventDefault(); // Prevent the form from being submitted
       let inputValue = input.value;
 
       if (inputValue.toLowerCase() === originalWord) {
-        console.log('correct')
+        input.value = '';
+        let index = words.indexOf(originalWord);
+        words.splice(index, 1);
+        randomizeLetters();
+        result.textContent = 'Correct!'
+        console.log(words);
       } else {
-        console.log('wrong')
+        result.textContent = 'Wrong!'
+        input.value = '';
       }
     });
 
@@ -49,7 +57,10 @@
       let letters = originalWord.split('');
       letters.sort(function(){return 0.5 - Math.random()});
       dynamicText.textContent = letters.join('');
+      result.textContent = '';
     };
+
+    randomizeLetters();
 
   </script>
 </body>
