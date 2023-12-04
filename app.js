@@ -1,16 +1,23 @@
-const words = ['perception'] //, 'straighten', 'diplomatic', 'accessible', 'monstrous', 'appearance', 'domination', 'presidential', 'frequency', 'pneumonia'];
+const words = {
+  1: ['quantity', 'majority', 'convince', 'accessible', 'monstrous', 'appearance', 'domination', 'presidential', 'frequency', 'pneumonia'],
+  2: ['qualification', 'strikebreaker', 'communication', 'concentration', 'investigation', 'consideration', 'consciousness', 'demonstration', 'entertainment', 'understanding'],
+  3: ['discrimination', 'recommendation', 'identification', 'infrastructure', 'administration', 'rehabilitation', 'responsibility', 'superintendent', 'characteristic', 'correspondence'],
+};
+
 const dynamicText = document.getElementById('dynamic-text');
 let originalWord = '';
 const input = document.getElementById('input');
-const result = document.getElementById('result')
+const level = document.getElementById('level');
+let lvl = level.value;
+const result = document.getElementById('result');
 const submitButton = document.getElementById('submit-button');
 submitButton.addEventListener('click', function(e) {
   e.preventDefault(); // Prevent the form from being submitted
   let inputValue = input.value;
   if (inputValue.toLowerCase() === originalWord) {
     input.value = '';
-    let index = words.indexOf(originalWord);
-    words.splice(index, 1);
+    let index = words[lvl].indexOf(originalWord);
+    words[lvl].splice(index, 1);
     randomizeLetters();
     result.textContent = 'Correct!';
     console.log(words);
@@ -24,8 +31,12 @@ const getNewWord = document.getElementById('new-word');
 getNewWord.addEventListener('click', function(){randomizeLetters()});
 
 function getRandomWord(array) {
-  const randomWord = Math.floor(Math.random() * array.length);
-  const word = array[randomWord]
+  console.log(lvl);
+  console.log(Object.values(array));
+  
+  const randomWord = Math.floor(Math.random() * array[lvl].length);
+  console.log(array[lvl][randomWord]);
+  const word = array[lvl][randomWord];
   return word;
 };
 
