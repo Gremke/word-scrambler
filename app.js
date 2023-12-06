@@ -8,13 +8,19 @@ const dynamicText = document.getElementById('dynamic-text');
 let originalWord = '';
 const input = document.getElementById('input');
 const level = document.getElementById('level');
-let lvl = level.value;
+const lvl = level.value;
 const result = document.getElementById('result');
 const submitButton = document.getElementById('submit-button');
-submitButton.addEventListener('click', function(e) {
+const getNewWord = document.getElementById('new-word');
+
+submitButton.addEventListener('click', handleSubmission);
+getNewWord.addEventListener('click', randomizeLetters);
+
+
+function handleSubmission(e) {
   e.preventDefault(); // Prevent the form from being submitted
-  let inputValue = input.value;
-  if (inputValue.toLowerCase() === originalWord) {
+  let inputValue = input.value.toLowerCase();
+  if (inputValue === originalWord) {
     input.value = '';
     let index = words[lvl].indexOf(originalWord);
     words[lvl].splice(index, 1);
@@ -25,12 +31,10 @@ submitButton.addEventListener('click', function(e) {
     result.textContent = 'Wrong!';
     input.value = '';
   }
-});
-
-const getNewWord = document.getElementById('new-word');
-getNewWord.addEventListener('click', function(){randomizeLetters()});
+};
 
 function getRandomWord(array) {
+  let lvl = level.value;
   console.log(lvl);
   console.log(Object.values(array));
   
@@ -41,10 +45,10 @@ function getRandomWord(array) {
 };
 
 function randomizeLetters() {
-  if (words.length === 0) {
+  if (words[lvl].length === 0) {
     // Handle the case where all words have been guessed
     const newDiv = document.createElement('div');
-    const complete = document.createTextNode('All of the words have been guessed!');
+    const complete = document.textContent('All of the words have been guessed!');
     newDiv.appendChild(complete);
     const body = document.querySelector('body');
     body.appendChild(newDiv);
@@ -54,7 +58,7 @@ function randomizeLetters() {
 
   originalWord = getRandomWord(words);
   let letters = originalWord.split('');
-  letters.sort(function(){return 0.5 - Math.random()});
+  letters.sort(() => 0.5 - Math.random());
   dynamicText.textContent = letters.join('');
   result.textContent = '';
 };
