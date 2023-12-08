@@ -47,12 +47,7 @@ function getRandomWord(array) {
 function randomizeLetters() {
   if (words[lvl].length === 0) {
     // Handle the case where all words have been guessed
-    const newDiv = document.createElement('div');
-    const complete = document.textContent('All of the words have been guessed!');
-    newDiv.appendChild(complete);
-    const body = document.querySelector('body');
-    body.appendChild(newDiv);
-    dynamicText.textContent = '';
+    dynamicText.textContent = 'All of the words have been guessed!';
     return;
   };
 
