@@ -8,14 +8,20 @@ const dynamicText = document.getElementById('dynamic-text');
 let originalWord = '';
 const input = document.getElementById('input');
 const level = document.getElementById('level');
-const lvl = level.value;
+let lvl = level.value;
 const result = document.getElementById('result');
 const submitButton = document.getElementById('submit-button');
 const getNewWord = document.getElementById('new-word');
 
 submitButton.addEventListener('click', handleSubmission);
 getNewWord.addEventListener('click', randomizeLetters);
+level.addEventListener('change', handleLevelChange)
 
+function handleLevelChange() {
+  let currentLevel = level.value;
+  lvl = currentLevel;
+  randomizeLetters();
+}
 
 function handleSubmission(e) {
   e.preventDefault(); // Prevent the form from being submitted
@@ -35,8 +41,6 @@ function handleSubmission(e) {
 
 function getRandomWord(array) {
   let lvl = level.value;
-  console.log(lvl);
-  console.log(Object.values(array));
   
   const randomWord = Math.floor(Math.random() * array[lvl].length);
   console.log(array[lvl][randomWord]);
