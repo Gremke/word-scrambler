@@ -5,6 +5,7 @@ const words = {
 };
 
 const dynamicText = document.getElementById('dynamic-text');
+const wordCount = document.getElementById('word-count');
 let originalWord = '';
 const input = document.getElementById('input');
 const level = document.getElementById('level');
@@ -53,6 +54,8 @@ function randomizeLetters() {
     // Handle the case where all words have been guessed
     dynamicText.textContent = 'All of the words have been guessed!';
     return;
+  } else {
+    wordCount.textContent = `Remaining words: ${words[lvl].length}`
   };
 
   originalWord = getRandomWord(words);
